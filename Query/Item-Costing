@@ -1,0 +1,5 @@
+select
+       ticpr007.item,         | Item
+       ticpr007.ecpr(1)       | Estimated Cost Price
+from
+       ticpr007               | Item Costing Data

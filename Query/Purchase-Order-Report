@@ -1,0 +1,48 @@
+select
+       tdpur400.orno,         | Purchase Order
+       tdpur401.pono,         | Position Number
+       tdpur400.otbp,         | Buy-from BP
+       tccom100.nama,	      | BP name
+       tdpur401.item,         | Item
+|       tdpur401.oqua,         | Ordered Quantity
+       tdpur401.qoor,         | Ordered Quantity
+|       tdpur401.dqua,         | Delivered Quantity
+       tdpur401.qidl,         | Delivered Quantity
+       tdpur401.oamt,         | Amount
+       tdpur400.ccur,
+       tdpur400.ratp(1),
+       tdpur400.ratp(2),		
+       tdpur400.ccon,         | Buyer
+       tdpur400.odat,         | Order Date
+    |   tdpur401.ddte,         | Actual Delivery Date
+       whwmd400.abcc          | ABC Code
+from
+       
+       tdpur400,              | Purchase Orders
+       tdpur401,              | Purchase Order Lines
+       tccom100,	      | BP	
+       whwmd400
+	
+where
+       tdpur400.orno >= tdpur400.orno.f and
+       tdpur400.orno <= tdpur400.orno.t and
+       tdpur400.otbp >= tdpur400.otbp.f and
+       tdpur400.otbp <= tdpur400.otbp.t and
+       tdpur400.odat >= tdpur400.odat.f and
+       tdpur400.odat <= tdpur400.odat.t and
+	tdpur401.item >= tdpur401.item.f and
+	tdpur401.item <= tdpur401.item.t and
+	tdpur401.cwar >= tdpur401.cwar.f and
+	tdpur401.cwar <= tdpur401.cwar.t and 
+	tdpur400.cotp >= tdpur400.cotp.f and
+	tdpur400.cotp <= tdpur400.cotp.t and
+	(tdpur401.oltp = 1 or tdpur401.oltp = 4) and 
+       	tdpur401.orno = tdpur400.orno and
+       tdpur401.otbp = tdpur400.otbp and
+	tdpur400.otbp = tccom100.bpid and
+	tdpur401.item = whwmd400.item and
+       tdpur401.clyn = tcyesno.no 
+     |  tdpur400.cotp='PUR'
+      
+order by
+        tdpur400.odat
